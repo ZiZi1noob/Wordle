@@ -1,0 +1,6 @@
+{
+  "words": ["HELLO", "WORLD", "QUITE", "FANCY", "FRESH", "PANIC", "CRAZY", "BUGGY"],
+  "language": "en",
+  "maxRounds": 6,
+  "caseSensitive": "false"
+}
