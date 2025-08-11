@@ -1,0 +1,22 @@
+{
+  "name": "wordle",
+  "version": "1.0.0",
+  "description": "Wordle Project for fun",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ZiZi1noob/Wordle.git"
+  },
+  "keywords": [
+    "wordle"
+  ],
+  "author": "zizi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZiZi1noob/Wordle/issues"
+  },
+  "homepage": "https://github.com/ZiZi1noob/Wordle#readme"
+}
