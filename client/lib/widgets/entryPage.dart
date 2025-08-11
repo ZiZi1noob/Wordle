@@ -28,10 +28,6 @@ class _EntryPageState extends State<EntryPage> {
     final screenWidth = media.size.width;
     final screenHeight = media.size.height;
     final isDesktop = screenWidth > 600;
-    // final accountProvider = Provider.of<AccountProvider>(
-    //   context,
-    //   listen: false,
-    // );
 
     return Scaffold(
       body: Center(
@@ -50,11 +46,12 @@ class _EntryPageState extends State<EntryPage> {
                     // Animated Title
                     Text(
                           'WORDLE',
-                          style: Theme.of(context).textTheme.displayLarge
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 4,
-                              ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.displayLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 4,
+                          ),
                         )
                         .animate()
                         .fadeIn(duration: 500.ms)
@@ -93,18 +90,29 @@ class _EntryPageState extends State<EntryPage> {
 
                           builder: (context, isLoading, child) {
                             return FilledButton.tonal(
-                              onPressed: isLoading
-                                  ? null
-                                  : () async {
-                                      //
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MenuPage(),
-                                        ),
-                                      );
-                                    },
+                              onPressed:
+                                  isLoading
+                                      ? null
+                                      : () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          final isSucc = await context
+                                              .read<UserProvider>()
+                                              .getUserInfo(
+                                                _nameController.text,
+                                                context,
+                                              );
+                                          if (isSucc) {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (context) =>
+                                                        const MenuPage(),
+                                              ),
+                                            );
+                                          }
+                                        }
+                                      },
 
                               style: FilledButton.styleFrom(
                                 minimumSize: const Size(double.infinity, 50),
@@ -112,11 +120,12 @@ class _EntryPageState extends State<EntryPage> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: isLoading
-                                  ? const CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )
-                                  : const Text('Continue'),
+                              child:
+                                  isLoading
+                                      ? const CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                      : const Text('Continue'),
                             );
                           },
                         )

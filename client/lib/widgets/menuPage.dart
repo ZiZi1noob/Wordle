@@ -10,7 +10,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<UserProvider, String>(
-      selector: (context, userProv) => userProv.name ?? '',
+      selector: (context, userProv) => userProv.name,
       builder: (context, name, child) {
         return Scaffold(
           appBar: AppBar(title: Text('Welcome, $name'), centerTitle: true),
@@ -21,14 +21,19 @@ class MenuPage extends StatelessWidget {
                 // New Game Button
                 FilledButton(
                       onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const GamePage(isNewGame: true),
-                          ),
-                        );
-                        // navigator to game page
+                        final isSucc = await context
+                            .read<UserProvider>()
+                            .newGame(context);
+                        if (!context.mounted) return;
+                        if (isSucc) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => const GamePage(isNewGame: true),
+                            ),
+                          );
+                        }
                       },
                       style: FilledButton.styleFrom(
                         minimumSize: const Size(200, 60),
