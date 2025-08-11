@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:wordle/provider/userProv.dart' show UserProvider;
+import 'package:wordle/widgets/gamePage.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -19,7 +20,16 @@ class MenuPage extends StatelessWidget {
               children: [
                 // New Game Button
                 FilledButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const GamePage(isNewGame: true),
+                          ),
+                        );
+                        // navigator to game page
+                      },
                       style: FilledButton.styleFrom(
                         minimumSize: const Size(200, 60),
                         shape: RoundedRectangleBorder(
