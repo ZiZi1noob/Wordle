@@ -4,8 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:wordle/provider/userProv.dart' show UserProvider;
 import 'package:flutter/services.dart';
 import 'package:wordle/utils/notifyMsg.dart' show notifyMsg;
-import 'package:wordle/models/gameModel.dart'
-    show GameSettings, GameState, CurrentGame, HistoryGame, Guess;
+import 'package:wordle/utils/dialogAnimations.dart' show showHelpDialog;
 
 class GamePage extends StatefulWidget {
   final bool isNewGame;
@@ -42,19 +41,10 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     final provider = context.watch<UserProvider>();
     final isDesktop = MediaQuery.of(context).size.width > 768;
-    final tileSize = isDesktop ? 70.0 : 50.0;
+
     final keyboardKeySize = isDesktop ? 50.0 : 40.0;
 
-    // if (provider.isLoading) {
-    //   return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    // }
-
     final currentGame = provider.currentGame;
-    if (currentGame?.isGameOver == true) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showGameOverDialog(currentGame);
-      });
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -66,7 +56,7 @@ class _GamePageState extends State<GamePage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.help_outline),
-            onPressed: _showHelpDialog,
+            onPressed: () => showHelpDialog(context),
             tooltip: 'How to play',
           ),
           IconButton(
@@ -484,36 +474,6 @@ class _GamePageState extends State<GamePage> {
     }
   }
 
-  void _showGameOverDialog(CurrentGame? game) {
-    // if (game == null) return;
-    // showDialog(
-    //   context: context,
-    //   barrierDismissible: false,
-    //   builder:
-    //       (context) => AlertDialog(
-    //         title: Text(game.isWon ? 'You Won!' : 'Game Over'),
-    //         content: Column(
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: [
-    //             Text('The word was: ${game.answer}'),
-    //             const SizedBox(height: 20),
-    //             if (game.isWon)
-    //               Text('You guessed it in ${game.guesses.length} tries!'),
-    //           ],
-    //         ),
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () {
-    //               Navigator.pop(context);
-    //               _restartGame();
-    //             },
-    //             child: const Text('New Game'),
-    //           ),
-    //         ],
-    //       ),
-    // );
-  }
-
   void _restartGame() async {
     showDialog(
       context: context,
@@ -530,6 +490,7 @@ class _GamePageState extends State<GamePage> {
                 onPressed: () async {
                   Navigator.pop(context);
                   await context.read<UserProvider>().newGame(context);
+
                   _guessController.clear();
                   _focusNode.requestFocus();
                 },
@@ -539,52 +500,4 @@ class _GamePageState extends State<GamePage> {
           ),
     );
   }
-
-  void _showHelpDialog() {
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('How to Play'),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildHelpRow('🟩', 'Correct letter in correct position'),
-                  _buildHelpRow('🟨', 'Correct letter in wrong position'),
-                  _buildHelpRow('⬜', 'Letter not in word'),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Type a 5-letter word and press Enter to submit. '
-                    'You have 6 attempts to guess the hidden word.',
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Got it!'),
-              ),
-            ],
-          ),
-    );
-  }
-
-  Widget _buildHelpRow(String emoji, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Text(emoji, style: const TextStyle(fontSize: 24)),
-          const SizedBox(width: 16),
-          Text(text),
-        ],
-      ),
-    );
-  }
-
-
 }
-

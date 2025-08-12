@@ -2,10 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:confetti/confetti.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
 import 'package:wordle/models/userModel.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wordle/services/userService.dart' show UserService;
 import 'package:wordle/services/gameService.dart' show GameService;
 import 'package:wordle/utils/notifyMsg.dart' show notifyMsg;
+import 'package:wordle/utils/dialogAnimations.dart' show showHelpDialog;
 import 'package:wordle/utils/crypto.dart' show generateGameId;
 import 'package:wordle/widgets/menuPage.dart' show MenuPage;
 import 'package:wordle/models/gameModel.dart'
@@ -114,8 +118,8 @@ class UserProvider with ChangeNotifier {
           ),
         );
         _gameId = newGameId;
-
-        await notifyMsg('New game started!', context, Colors.greenAccent);
+        showHelpDialog(context);
+        //  await notifyMsg('New game started!', context, Colors.greenAccent);
         return true;
       } else {
         await notifyMsg(response.message, context, Colors.redAccent);
@@ -140,98 +144,6 @@ class UserProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  // Future<bool> submitGuess(String guess, BuildContext context) async {
-  //   if (currentGame == null || _gameId == null) {
-  //     await notifyMsg(
-  //       'No active game found, backing to menu page...',
-  //       context,
-  //       Colors.redAccent,
-  //     );
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => const MenuPage()),
-  //     );
-  //     return false;
-  //   }
-
-  //   _isLoading = true;
-  //   notifyListeners();
-
-  //   try {
-  //     final response = await GameService()
-  //         .submitGuess(name, _gameId!, guess)
-  //         .timeout(const Duration(seconds: 10));
-
-  //     if (response.code == "200" || response.code == "201") {
-  //       final gameData = response.data!;
-  //       final isGameOver = gameData['isGameOver'] == true;
-  //       final isWon = gameData['isWon'] == true;
-
-  //       // Convert the dynamic guesses to List<List<Guess>>
-  //       final List<List<Guess>> guesses =
-  //           (gameData['guesses'] as List)
-  //               .map(
-  //                 (row) =>
-  //                     (row as List)
-  //                         .map((g) => Guess.fromJson(g as Map<String, dynamic>))
-  //                         .toList(),
-  //               )
-  //               .toList();
-  //       // Update current game
-  //       final updatedGame = currentGame!.copyWith(
-  //         currentRound: gameData['currentRound'],
-
-  //         guesses: guesses,
-  //         isGameOver: isGameOver,
-  //         lastUpdated: DateTime.now(),
-  //       );
-
-  //       // Update user model
-  //       _user = _user!.copyWith(
-  //         meta: _user!.meta.copyWith(lastUpdated: DateTime.now()),
-  //         gameState: _user!.gameState!.copyWith(currentGame: updatedGame),
-  //       );
-
-  //       // Handle game completion
-  //       if (isGameOver) {
-  //         print('game is over, working the logic');
-  //         // await _completeGame(
-  //         //   isWon: isWon,
-  //         //   timeUsed: (gameData['timeUsed'] as num?)?.toDouble() ?? 0.0,
-  //         //   context: context,
-  //         // );
-  //       }
-
-  //       await notifyMsg(
-  //         isWon ? 'You won!' : 'Guess submitted',
-  //         context,
-  //         isWon ? Colors.greenAccent : Colors.blue,
-  //       );
-  //       return true;
-  //     } else {
-  //       await notifyMsg(response.message, context, Colors.redAccent);
-  //       return false;
-  //     }
-  //   } on TimeoutException {
-  //     await notifyMsg(
-  //       'Request timed out',
-  //       context,
-  //       Theme.of(context).colorScheme.error,
-  //     );
-  //     return false;
-  //   } catch (e) {
-  //     await notifyMsg(
-  //       'Error submitting guess: ${e.toString()}',
-  //       context,
-  //       Theme.of(context).colorScheme.error,
-  //     );
-  //     return false;
-  //   } finally {
-  //     _isLoading = false;
-  //     notifyListeners();
-  //   }
-  // }
 
   Future<bool> submitGuess(String guess, BuildContext context) async {
     if (currentGame == null || _gameId == null) {
@@ -326,40 +238,47 @@ class UserProvider with ChangeNotifier {
     BuildContext context, {
     bool isWon = false,
   }) async {
-    final answer = currentGame?.answer ?? ''; // Get from backend
-    final currentRound = currentGame?.currentRound ?? 0; // Handle null case
+    final answer = currentGame?.answer ?? '';
+    final currentRound = currentGame?.currentRound ?? 0;
+    final confettiController = ConfettiController(
+      duration: const Duration(seconds: 3),
+    );
 
-    // play
-    await showGeneralDialog(
+    if (isWon) confettiController.play();
+
+    await showDialog(
       context: context,
       barrierDismissible: false,
-      barrierColor: Colors.black54,
-      transitionDuration: const Duration(milliseconds: 500),
-      pageBuilder: (_, __, ___) {
-        return Center(
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
+            constraints: const BoxConstraints(maxWidth: 400),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.3),
-                  blurRadius: 30,
+                  blurRadius: 20,
                   spreadRadius: 5,
                 ),
               ],
             ),
             child: Stack(
               children: [
+                // Confetti background for winners
                 if (isWon)
                   Positioned.fill(
                     child: ConfettiWidget(
-                      confettiController: ConfettiController(
-                        duration: const Duration(seconds: 3),
-                      ),
-                      blastDirectionality: BlastDirectionality.explosive,
-                      shouldLoop: false,
+                      confettiController: confettiController,
+                      blastDirection: 3.14 / 2,
+                      emissionFrequency: 0.05,
+                      numberOfParticles: 20,
+                      maxBlastForce: 20,
+                      minBlastForce: 10,
+                      gravity: 0.2,
                       colors: const [
                         Colors.green,
                         Colors.blue,
@@ -369,78 +288,103 @@ class UserProvider with ChangeNotifier {
                       ],
                     ),
                   ),
+
                 Padding(
                   padding: const EdgeInsets.all(25),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Animated result icon
                       AnimatedSwitcher(
                         duration: const Duration(milliseconds: 500),
                         child:
                             isWon
-                                ? const Icon(
-                                  Icons.celebration,
-                                  size: 80,
-                                  color: Colors.amber,
-                                  key: ValueKey('win'),
+                                ? Lottie.asset(
+                                  'lottie/won.json',
+                                  width: 150,
+                                  height: 150,
+                                  repeat: false,
+                                  key: const ValueKey('win'),
                                 )
-                                : const Icon(
-                                  Icons.sentiment_very_dissatisfied,
-                                  size: 80,
-                                  color: Colors.grey,
-                                  key: ValueKey('lose'),
+                                : Lottie.asset(
+                                  'lottie/lose.json',
+                                  width: 150,
+                                  height: 150,
+                                  repeat: false,
+                                  key: const ValueKey('lose'),
                                 ),
                       ),
-                      const SizedBox(height: 20),
-                      AnimatedDefaultTextStyle(
-                        duration: const Duration(milliseconds: 300),
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: isWon ? Colors.green : Colors.red,
-                        ),
-                        child: Text(isWon ? 'CONGRATULATIONS!' : 'GAME OVER'),
-                      ),
-                      const SizedBox(height: 15),
-                      Text(
-                        isWon
-                            ? 'You guessed the word correctly! 🎉'
-                            : 'The word was: ${answer.toUpperCase()}',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(height: 25),
-                      if (isWon) ...[
-                        Text(
-                          'You won in $currentRound attempts!', // Use local variable
+
+                      ShaderMask(
+                        shaderCallback:
+                            (bounds) => LinearGradient(
+                              colors:
+                                  isWon
+                                      ? [Colors.green, Colors.lightGreen]
+                                      : [Colors.red, Colors.orange],
+                            ).createShader(bounds),
+                        child: Text(
+                          isWon ? 'VICTORY!' : 'GAME OVER',
                           style: const TextStyle(
-                            fontSize: 16,
+                            fontSize: 32,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white, // Important for ShaderMask
                           ),
                         ),
-                        const SizedBox(height: 15),
+                      ).animate().scale(duration: 600.ms),
+
+                      const SizedBox(height: 15),
+
+                      // Result message
+                      Text(
+                        isWon
+                            ? 'You crushed it in $currentRound tries!'
+                            : 'The word was:',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+
+                      if (!isWon) ...[
+                        const SizedBox(height: 10),
+                        Text(
+                          answer.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[800],
+                            letterSpacing: 3,
+                          ),
+                        ),
                       ],
+
+                      const SizedBox(height: 25),
+
+                      // Emoji results grid
+                      if (currentGame != null) _buildEmojiResults(currentGame!),
+
+                      const SizedBox(height: 25),
+
+                      // Action buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.share),
-                            label: const Text('Share'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueGrey[100],
-                              foregroundColor: Colors.blueGrey[800],
-                            ),
+                          // Share button
+                          _buildActionButton(
+                            icon: Icons.share,
+                            label: 'Share',
+                            color: Colors.blue,
                             onPressed: () => _shareResult(context),
                           ),
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.refresh),
-                            label: const Text('New Game'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              foregroundColor: Colors.white,
-                            ),
+
+                          // New game button
+                          _buildActionButton(
+                            icon: Icons.refresh,
+                            label: 'New Game',
+                            color: Colors.green,
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.pop(context);
                               newGame(context);
                             },
                           ),
@@ -454,12 +398,61 @@ class UserProvider with ChangeNotifier {
           ),
         );
       },
-      transitionBuilder: (_, anim, __, child) {
-        return ScaleTransition(
-          scale: CurvedAnimation(parent: anim, curve: Curves.elasticOut),
-          child: FadeTransition(opacity: anim, child: child),
-        );
-      },
+    );
+
+    confettiController.dispose();
+  }
+
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return ElevatedButton.icon(
+      icon: Icon(icon, size: 20),
+      label: Text(label),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildEmojiResults(CurrentGame game) {
+    return Column(
+      children: [
+        const Text(
+          'Your Results:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children:
+                game.guesses.map((row) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:
+                        row.map((guess) {
+                          return Text(
+                            guess.emoji,
+                            style: const TextStyle(fontSize: 24),
+                          );
+                        }).toList(),
+                  );
+                }).toList(),
+          ),
+        ),
+      ],
     );
   }
 

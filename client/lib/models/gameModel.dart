@@ -174,11 +174,10 @@ class GameState {
                 currentGameJson.isNotEmpty
             ? CurrentGame.fromJson(Map<String, dynamic>.from(currentGameJson))
             : null;
-    print('currentGame: ${currentGame}');
 
     List<HistoryGame>? history;
     final historyJson = json['history'];
-    print('historyJson: ${historyJson}');
+
     if (historyJson is List) {
       history =
           historyJson
@@ -186,7 +185,6 @@ class GameState {
               .map((e) => HistoryGame.fromJson(Map<String, dynamic>.from(e)))
               .toList();
     }
-    print('history: ${history}');
 
     return GameState(
       currentGame: currentGame,

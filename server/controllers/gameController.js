@@ -185,7 +185,7 @@ export const submitGuess = async (req, res) => {
         completedAt: new Date().toISOString(),
         timeUsed: calculateTimeUsed(userData.gameState.currentGame.createdAt),
       };
-      console.log(`historyEntry:  ${JSON.stringify(historyEntry)}`);
+      
       // Update history
       userData.gameState.history = [
         historyEntry,
@@ -200,7 +200,7 @@ export const submitGuess = async (req, res) => {
       );
       // Only null the currentGame AFTER we've prepared our response
       userData.gameState.currentGame = null;
-      console.log(`userData:  ${JSON.stringify(userData)}`);
+     
     }
 
     // 8. Save updated data

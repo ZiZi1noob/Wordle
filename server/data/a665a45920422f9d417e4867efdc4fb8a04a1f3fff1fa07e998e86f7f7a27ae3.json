@@ -2,7 +2,7 @@
   "meta": {
     "version": "1.0",
     "createdAt": "2025-08-12T08:12:31.421Z",
-    "lastUpdated": "2025-08-12T08:15:01.083Z"
+    "lastUpdated": "2025-08-12T09:41:00.241Z"
   },
   "user": {
     "id": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
@@ -13,31 +13,31 @@
     }
   },
   "stats": {
-    "gamesPlayed": 1,
-    "gamesWon": 0,
-    "winPercentage": 0,
+    "gamesPlayed": 4,
+    "gamesWon": 2,
+    "winPercentage": 50,
     "currentStreak": 0,
-    "maxStreak": 0,
+    "maxStreak": 2,
     "guessDistribution": [
-      0,
-      0,
+      1,
+      1,
       0,
       0,
       0,
       0
     ],
-    "averageTime": 45.265
+    "averageTime": 43.690749999999994
   },
   "gameState": {
     "currentGame": {
-      "gameId": "f993dc7f",
-      "answer": "FRESH",
+      "gameId": "c9fc3a81",
+      "answer": "QUITE",
       "currentRound": 0,
       "maxRounds": 6,
       "isGameOver": false,
       "guesses": [],
-      "createdAt": "2025-08-12T08:15:01.083Z",
-      "lastUpdated": "2025-08-12T08:15:01.083Z",
+      "createdAt": "2025-08-12T09:41:00.241Z",
+      "lastUpdated": "2025-08-12T09:41:00.241Z",
       "settings": {
         "wordLength": 5,
         "maxRounds": 6,
@@ -45,6 +45,50 @@
       }
     },
     "history": [
+      {
+        "gameId": "cb14b9ba",
+        "answer": "QUITE",
+        "guesses": [
+          "HELLO",
+          "HELLO",
+          "WORLD",
+          "HELLO",
+          "HELLO",
+          "WORLD"
+        ],
+        "isWon": false,
+        "createdAt": "2025-08-12T09:02:12.677Z",
+        "completedAt": "2025-08-12T09:02:53.467Z",
+        "timeUsed": 40.79
+      },
+      {
+        "gameId": "0ab81f88",
+        "answer": "BUGGY",
+        "guesses": [
+          "WORLD",
+          "PANIC",
+          "WORLD",
+          "FANCY",
+          "BUGGY"
+        ],
+        "isWon": true,
+        "createdAt": "2025-08-12T09:01:17.948Z",
+        "completedAt": "2025-08-12T09:02:00.360Z",
+        "timeUsed": 42.412
+      },
+      {
+        "gameId": "ed50bf6f",
+        "answer": "PANIC",
+        "guesses": [
+          "WORLD",
+          "FANCY",
+          "PANIC"
+        ],
+        "isWon": true,
+        "createdAt": "2025-08-12T08:58:58.645Z",
+        "completedAt": "2025-08-12T08:59:44.939Z",
+        "timeUsed": 46.294
+      },
       {
         "gameId": "45ec6d24",
         "answer": "BUGGY",
