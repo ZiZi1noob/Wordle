@@ -45,9 +45,9 @@ class _GamePageState extends State<GamePage> {
     final tileSize = isDesktop ? 70.0 : 50.0;
     final keyboardKeySize = isDesktop ? 50.0 : 40.0;
 
-    if (provider.isLoading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
+    // if (provider.isLoading) {
+    //   return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    // }
 
     final currentGame = provider.currentGame;
     if (currentGame?.isGameOver == true) {
@@ -584,4 +584,7 @@ class _GamePageState extends State<GamePage> {
       ),
     );
   }
+
+
 }
+

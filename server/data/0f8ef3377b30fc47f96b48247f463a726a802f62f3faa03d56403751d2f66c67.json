@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "version": "1.0",
+    "createdAt": "2025-08-12T08:15:19.973Z",
+    "lastUpdated": "2025-08-12T08:15:19.973Z"
+  },
+  "user": {
+    "id": "0f8ef3377b30fc47f96b48247f463a726a802f62f3faa03d56403751d2f66c67",
+    "username": "125",
+    "preferences": {
+      "theme": "",
+      "gameMode": ""
+    }
+  },
+  "stats": {
+    "gamesPlayed": 0,
+    "gamesWon": 0,
+    "winPercentage": 0,
+    "currentStreak": 0,
+    "maxStreak": 0,
+    "guessDistribution": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "averageTime": 0
+  },
+  "gameState": {
+    "currentGame": {},
+    "history": []
+  }
+}

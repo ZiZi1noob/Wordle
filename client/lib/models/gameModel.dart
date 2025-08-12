@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-// New models to replace GameRecord
 class CurrentGame {
   final String gameId;
   final int currentRound;
   final int maxRounds;
+  final String answer;
   // final List<dynamic> guesses; // Could be List<Guess> if you have a Guess model
   final List<List<Guess>> guesses;
   final DateTime createdAt;
@@ -15,6 +15,7 @@ class CurrentGame {
   CurrentGame({
     required this.gameId,
     required this.currentRound,
+    required this.answer,
     required this.maxRounds,
     required this.guesses,
     required this.createdAt,
@@ -28,8 +29,10 @@ class CurrentGame {
       gameId: json['gameId'] as String,
       currentRound: json['currentRound'] as int,
       maxRounds: json['maxRounds'] as int,
+      answer: json['answer'] as String,
       //  guesses: (json['guesses'] as List?) ?? [],
-      guesses: _parseGuesses(json['guesses']),
+      //  guesses: _parseGuesses(json['guesses']),
+      guesses: json['guesses'] == null ? [] : _parseGuesses(json['guesses']),
       createdAt: DateTime.parse(json['createdAt'] as String),
       lastUpdated: DateTime.parse(json['lastUpdated'] as String),
       settings: GameSettings.fromJson(json['settings'] as Map<String, dynamic>),
@@ -39,13 +42,19 @@ class CurrentGame {
 
   static List<List<Guess>> _parseGuesses(dynamic guessesJson) {
     // Handle null or non-List input
-    if (guessesJson == null || guessesJson is! List) return [];
+    if (guessesJson == null) return [];
+
+    // If it's an empty list, return empty list
+    if (guessesJson is List && guessesJson.isEmpty) return [];
+
+    // If it's not a List at this point, return empty list
+    if (guessesJson is! List) return [];
 
     // Initialize empty 2D list
     final List<List<Guess>> result = [];
 
     for (var row in guessesJson) {
-      // Skip if not a list
+      // If row is not a list, skip it
       if (row is! List) continue;
 
       final List<Guess> guessRow = [];
@@ -84,6 +93,7 @@ class CurrentGame {
     String? gameId,
     int? currentRound,
     int? maxRounds,
+    String? answer,
     List<List<Guess>>? guesses,
     DateTime? createdAt,
     DateTime? lastUpdated,
@@ -92,6 +102,7 @@ class CurrentGame {
   }) {
     return CurrentGame(
       gameId: gameId ?? this.gameId,
+      answer: answer ?? this.answer,
       currentRound: currentRound ?? this.currentRound,
       maxRounds: maxRounds ?? this.maxRounds,
       guesses: guesses ?? this.guesses,
@@ -129,7 +140,7 @@ class HistoryGame {
       guesses: (json['guesses'] as List?)?.cast<dynamic>() ?? [],
       isWon: json['isWon'] as bool? ?? false,
       createdAt: DateTime.parse(json['createdAt'] as String),
-      completedAt: DateTime.parse(json['lastUpdated'] as String),
+      completedAt: DateTime.parse(json['completedAt'] as String),
       timeUsed: (json['timeUsed'] as num?)?.toDouble() ?? 0.0,
     );
   }
@@ -163,9 +174,11 @@ class GameState {
                 currentGameJson.isNotEmpty
             ? CurrentGame.fromJson(Map<String, dynamic>.from(currentGameJson))
             : null;
+    print('currentGame: ${currentGame}');
 
     List<HistoryGame>? history;
     final historyJson = json['history'];
+    print('historyJson: ${historyJson}');
     if (historyJson is List) {
       history =
           historyJson
@@ -173,6 +186,7 @@ class GameState {
               .map((e) => HistoryGame.fromJson(Map<String, dynamic>.from(e)))
               .toList();
     }
+    print('history: ${history}');
 
     return GameState(
       currentGame: currentGame,

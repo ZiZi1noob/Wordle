@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "version": "1.0",
+    "createdAt": "2025-08-12T08:12:31.421Z",
+    "lastUpdated": "2025-08-12T08:15:01.083Z"
+  },
+  "user": {
+    "id": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "username": "123",
+    "preferences": {
+      "theme": "",
+      "gameMode": ""
+    }
+  },
+  "stats": {
+    "gamesPlayed": 1,
+    "gamesWon": 0,
+    "winPercentage": 0,
+    "currentStreak": 0,
+    "maxStreak": 0,
+    "guessDistribution": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "averageTime": 45.265
+  },
+  "gameState": {
+    "currentGame": {
+      "gameId": "f993dc7f",
+      "answer": "FRESH",
+      "currentRound": 0,
+      "maxRounds": 6,
+      "isGameOver": false,
+      "guesses": [],
+      "createdAt": "2025-08-12T08:15:01.083Z",
+      "lastUpdated": "2025-08-12T08:15:01.083Z",
+      "settings": {
+        "wordLength": 5,
+        "maxRounds": 6,
+        "caseSensitive": "false"
+      }
+    },
+    "history": [
+      {
+        "gameId": "45ec6d24",
+        "answer": "BUGGY",
+        "guesses": [
+          "WORLD",
+          "FANCY",
+          "HELLO",
+          "FANCY",
+          "FANCY",
+          "FANCY"
+        ],
+        "isWon": false,
+        "createdAt": "2025-08-12T08:12:36.337Z",
+        "completedAt": "2025-08-12T08:13:21.601Z",
+        "timeUsed": 45.264
+      }
+    ]
+  }
+}
