@@ -2,7 +2,7 @@
   "meta": {
     "version": "1.0",
     "createdAt": "2025-08-12T09:12:14.953Z",
-    "lastUpdated": "2025-08-12T09:15:36.934Z"
+    "lastUpdated": "2025-08-12T12:13:41.099Z"
   },
   "user": {
     "id": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
@@ -13,11 +13,11 @@
     }
   },
   "stats": {
-    "gamesPlayed": 0,
-    "gamesWon": 0,
-    "winPercentage": 0,
-    "currentStreak": 0,
-    "maxStreak": 0,
+    "gamesPlayed": 1,
+    "gamesWon": 1,
+    "winPercentage": 100,
+    "currentStreak": 1,
+    "maxStreak": 1,
     "guessDistribution": [
       0,
       0,
@@ -26,24 +26,36 @@
       0,
       0
     ],
-    "averageTime": 0
+    "averageTime": 8.665
   },
   "gameState": {
     "currentGame": {
-      "gameId": "5acd1ba2",
-      "answer": "CRAZY",
+      "gameId": "2d0bf1b1",
+      "answer": "FANCY",
       "currentRound": 0,
       "maxRounds": 6,
       "isGameOver": false,
       "guesses": [],
-      "createdAt": "2025-08-12T09:15:36.934Z",
-      "lastUpdated": "2025-08-12T09:15:36.934Z",
+      "createdAt": "2025-08-12T12:13:41.099Z",
+      "lastUpdated": "2025-08-12T12:13:41.099Z",
       "settings": {
         "wordLength": 5,
         "maxRounds": 6,
         "caseSensitive": "false"
       }
     },
-    "history": []
+    "history": [
+      {
+        "gameId": "a456ff2b",
+        "answer": "WORLD",
+        "guesses": [
+          "WORLD"
+        ],
+        "isWon": true,
+        "createdAt": "2025-08-12T12:13:05.718Z",
+        "completedAt": "2025-08-12T12:13:14.383Z",
+        "timeUsed": 8.665
+      }
+    ]
   }
 }

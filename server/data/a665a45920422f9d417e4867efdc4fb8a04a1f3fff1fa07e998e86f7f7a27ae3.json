@@ -2,7 +2,7 @@
   "meta": {
     "version": "1.0",
     "createdAt": "2025-08-12T08:12:31.421Z",
-    "lastUpdated": "2025-08-12T09:41:00.241Z"
+    "lastUpdated": "2025-08-12T16:21:40.719Z"
   },
   "user": {
     "id": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
@@ -13,38 +13,163 @@
     }
   },
   "stats": {
-    "gamesPlayed": 4,
-    "gamesWon": 2,
-    "winPercentage": 50,
-    "currentStreak": 0,
+    "gamesPlayed": 7,
+    "gamesWon": 4,
+    "winPercentage": 57.14285714285714,
+    "currentStreak": 1,
     "maxStreak": 2,
     "guessDistribution": [
       1,
       1,
       0,
+      1,
       0,
-      0,
-      0
+      1
     ],
-    "averageTime": 43.690749999999994
+    "averageTime": 52.141
   },
   "gameState": {
     "currentGame": {
-      "gameId": "c9fc3a81",
-      "answer": "QUITE",
-      "currentRound": 0,
+      "gameId": "b60c7b5a",
+      "answer": "CRAZY",
+      "currentRound": 3,
       "maxRounds": 6,
       "isGameOver": false,
-      "guesses": [],
-      "createdAt": "2025-08-12T09:41:00.241Z",
-      "lastUpdated": "2025-08-12T09:41:00.241Z",
+      "guesses": [
+        [
+          {
+            "letter": "H",
+            "status": "absent",
+            "position": 0
+          },
+          {
+            "letter": "E",
+            "status": "absent",
+            "position": 1
+          },
+          {
+            "letter": "L",
+            "status": "absent",
+            "position": 2
+          },
+          {
+            "letter": "L",
+            "status": "absent",
+            "position": 3
+          },
+          {
+            "letter": "O",
+            "status": "absent",
+            "position": 4
+          }
+        ],
+        [
+          {
+            "letter": "W",
+            "status": "absent",
+            "position": 0
+          },
+          {
+            "letter": "O",
+            "status": "absent",
+            "position": 1
+          },
+          {
+            "letter": "R",
+            "status": "present",
+            "position": 2
+          },
+          {
+            "letter": "L",
+            "status": "absent",
+            "position": 3
+          },
+          {
+            "letter": "D",
+            "status": "absent",
+            "position": 4
+          }
+        ],
+        [
+          {
+            "letter": "F",
+            "status": "absent",
+            "position": 0
+          },
+          {
+            "letter": "A",
+            "status": "present",
+            "position": 1
+          },
+          {
+            "letter": "N",
+            "status": "absent",
+            "position": 2
+          },
+          {
+            "letter": "C",
+            "status": "present",
+            "position": 3
+          },
+          {
+            "letter": "Y",
+            "status": "correct",
+            "position": 4
+          }
+        ]
+      ],
+      "createdAt": "2025-08-12T16:21:40.719Z",
+      "lastUpdated": "2025-08-12T16:21:56.362Z",
       "settings": {
         "wordLength": 5,
         "maxRounds": 6,
         "caseSensitive": "false"
-      }
+      },
+      "isWon": false
     },
     "history": [
+      {
+        "gameId": "5f25239f",
+        "answer": "WORLD",
+        "guesses": [
+          "HELLO",
+          "HELLO",
+          "WORLD"
+        ],
+        "isWon": true,
+        "createdAt": "2025-08-12T12:57:23.128Z",
+        "completedAt": "2025-08-12T12:59:20.875Z",
+        "timeUsed": 117.747
+      },
+      {
+        "gameId": "1943e6c4",
+        "answer": "CRAZY",
+        "guesses": [
+          "HELLO",
+          "HELLO",
+          "WORLD",
+          "FANCY",
+          "FANCY",
+          "FANCY"
+        ],
+        "isWon": false,
+        "createdAt": "2025-08-12T12:44:14.289Z",
+        "completedAt": "2025-08-12T12:44:45.222Z",
+        "timeUsed": 30.933
+      },
+      {
+        "gameId": "3e34075d",
+        "answer": "FANCY",
+        "guesses": [
+          "WORLD",
+          "WORLD",
+          "FANCY"
+        ],
+        "isWon": true,
+        "createdAt": "2025-08-12T12:09:15.792Z",
+        "completedAt": "2025-08-12T12:09:57.335Z",
+        "timeUsed": 41.544
+      },
       {
         "gameId": "cb14b9ba",
         "answer": "QUITE",

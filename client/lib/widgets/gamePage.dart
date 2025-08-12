@@ -5,6 +5,7 @@ import 'package:wordle/provider/userProv.dart' show UserProvider;
 import 'package:flutter/services.dart';
 import 'package:wordle/utils/notifyMsg.dart' show notifyMsg;
 import 'package:wordle/utils/dialogAnimations.dart' show showHelpDialog;
+import 'package:wordle/widgets/menuPage.dart' show MenuPage;
 
 class GamePage extends StatefulWidget {
   final bool isNewGame;
@@ -48,6 +49,14 @@ class _GamePageState extends State<GamePage> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed:
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MenuPage()),
+              ),
+        ),
         title: const Text(
           'WORDLE',
           style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2),
@@ -483,7 +492,12 @@ class _GamePageState extends State<GamePage> {
             content: const Text('Are you sure you want to start a new game?'),
             actions: [
               TextButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed:
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MenuPage()),
+                    ),
+                // Navigator.pop(context),
                 child: const Text('Cancel'),
               ),
               TextButton(

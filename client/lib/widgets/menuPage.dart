@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:wordle/provider/userProv.dart' show UserProvider;
 import 'package:wordle/widgets/gamePage.dart';
+import 'package:wordle/widgets/entryPage.dart' show EntryPage;
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -13,7 +14,19 @@ class MenuPage extends StatelessWidget {
       selector: (context, userProv) => userProv.name,
       builder: (context, name, child) {
         return Scaffold(
-          appBar: AppBar(title: Text('Welcome, $name'), centerTitle: true),
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const EntryPage()),
+                  ),
+            ),
+            title: Text('Welcome, $name'),
+            centerTitle: true,
+          ),
+
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

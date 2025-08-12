@@ -30,7 +30,6 @@ class NormalWordleGame {
   }
 
   submitGuess(guess) {
-    console.log(guess);
     guess = this.settings.caseSensitive ? guess : guess.toUpperCase();
 
     if (this.isGameOver) {
