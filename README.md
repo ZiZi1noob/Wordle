@@ -72,13 +72,20 @@ node server.js
 ## Optimization & Future Plans
 
 1. First-load animation stutters during playback
+
 The stutter occurs because the UI layer constructs animation widgets only upon user interaction (e.g., pressing help button), causing initial rendering delays. A quick mitigation is to preload animation resources during intermediate loading stages—for example, by initializing them in a post-login loading screen.
 
-2. Lottie vs. Rive
+2. [Lottie](https://pub.dev/packages/lottie) vs. [Rive](https://rive.app/)
+
 Currently using Lottie (simple JSON import, fast setup)；But I believe Rive is better on UX, which supports user interaction on animations.
 
 3. Need to add a how-to-play tutorial
+
 Like me, it was my first time to play this game. I even googled how to play Wordle. So, I would rather than add one game tutorial. Currently, it has one help dialog for showing basic rules. But I think it can be much better.
 
 4. Need to add audio
+
 I never played one game without audio. So a normal product needs background music, button sounds, and victory/failure sounds. Due to time constraints, I started writing this demo on Monday at noon and had to work during the day, so it took me about seven or eight hours to complete this demo.
+
+
+Anyway, thanks for the chance of learning something new. Hope enjoy.
