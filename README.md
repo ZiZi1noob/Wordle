@@ -50,7 +50,7 @@ server/
 ```bash
 # 1. Install Flutter SDK
 # 2. Clone repository
-git clone https://github.com/your-repo/wordle-clone.git
+git clone https://github.com/ZiZi1noob/Wordle.git
 cd wordle-clone/client
 
 # 3. Install dependencies
