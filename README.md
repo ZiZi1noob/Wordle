@@ -6,6 +6,7 @@ client/
 server/
 
 ### Client-Side Architecture
+```
 client/
 ├── .env
 ├── assets/
@@ -23,6 +24,7 @@ client/
 └──────
 
 ### Server-Side Architecture
+```
 server/
 ├── controllers/
 ├── data/   # User data
