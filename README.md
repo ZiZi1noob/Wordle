@@ -49,9 +49,10 @@ server/
 ### Client Setup
 ```bash
 # 1. Install Flutter SDK
+
 # 2. Clone repository
 git clone https://github.com/ZiZi1noob/Wordle.git
-cd wordle-clone/client
+cd ./client
 
 # 3. Install dependencies
 flutter pub get
@@ -86,4 +87,4 @@ Like me, it was my first time to play this game. I even googled how to play Word
 I never played one game without audio. So a normal product needs background music, button sounds, and victory/failure sounds. Due to time constraints, I started writing this demo on Monday at noon and had to work during the day, so it took me about seven or eight hours to complete this demo.
 
 
-Anyway, thanks for the chance of learning something new. Hope enjoy.
+ 
