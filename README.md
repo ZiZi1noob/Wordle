@@ -58,9 +58,11 @@ flutter pub get
 
 # 4. Run with hot reload
 flutter run -d chrome
+```
 
-### Client Setup
-cd ../server
+### Server Setup
+```bash
+cd ./server
 
 # 1. Install Node.js dependencies
 npm install
