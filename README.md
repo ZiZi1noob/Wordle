@@ -18,7 +18,7 @@ client/
 │ ├── models/   # Data models
 │ ├── providers/ # State management
 │ ├── services/ # Calling API
-│ ├── utils/  # some common widgets/functions
+│ ├── utils/  # Some common widgets/functions
 │ ├── widgets/  # UI components
 │ │ ├── entryPage.dart # First screen
 │ │ ├── gamePage.dart # Main game menu
@@ -66,7 +66,7 @@ cd ../server
 npm install
 
 # 2. Start development server
-node server.js
+node index.js
 ```
 
 ## Optimization & Future Plans
