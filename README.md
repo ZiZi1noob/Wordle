@@ -74,16 +74,20 @@ node index.js
 
 ## Optimization & Future Plans
 
-1. First-load animation stutters during playback<br>
+1. Biggest issue of the gameplay<br>
+The biggest issue with the current game is its gameplay—players just blindly guess the words with no sense of direction. I want to make the guessing process more engaging. My idea is to add fun descriptions to each word. For example, for apple: The one that hit Newton, now with a bite taken out of it (brand edition), etc...
+
+
+2. First-load animation stutters during playback<br>
 The stutter occurs because the UI layer constructs animation widgets only upon user interaction (e.g., pressing help button), causing initial rendering delays. A quick mitigation is to preload animation resources during intermediate loading stages—for example, by initializing them in a post-login loading screen.
 
-2. [Lottie](https://pub.dev/packages/lottie) vs. [Rive](https://rive.app/)<br>
+3. [Lottie](https://pub.dev/packages/lottie) vs. [Rive](https://rive.app/)<br>
 Currently using Lottie (simple JSON import, fast setup)；But I believe Rive is better on UX, which supports user interaction on animations.
 
-3. Need to add a how-to-play tutorial<br>
+4. Need to add a how-to-play tutorial<br>
 Like me, it was my first time to play this game. I even googled how to play Wordle. So, I would rather than add one game tutorial. Currently, it has one help dialog for showing basic rules. But I think it can be much better.
 
-4. Need to add audio<br>
+5. Need to add audio<br>
 I never played one game without audio. So a normal product needs background music, button sounds, and victory/failure sounds. Due to time constraints, I started writing this demo on Monday at noon and had to work during the day, so it took me about seven or eight hours to complete this demo.
 
 
